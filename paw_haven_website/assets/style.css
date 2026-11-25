@@ -32,3 +32,32 @@ footer{padding:35px 0;background:#263b30;color:#f7f5ee}.footer-inner{display:fle
 .whatsapp-support:hover{background:#107346;transform:translateY(-2px)}
 .whatsapp-support span:first-child{font-size:21px;line-height:1}
 @media(max-width:560px){.whatsapp-support{right:12px;bottom:12px;padding:12px 15px;font-size:12px}}
+
+/* Services and clinician pages */
+.info-section{padding:24px 0 48px}
+.info-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:17px}
+.info-grid.two-col{grid-template-columns:repeat(2,minmax(0,1fr))}
+.info-grid.three-col{grid-template-columns:repeat(3,minmax(0,1fr))}
+.info-card{background:#fff;border:1px solid var(--line);border-radius:20px;padding:24px;box-shadow:0 10px 30px rgba(37,57,44,.045)}
+.info-card h3{font:500 23px Georgia,serif;margin:8px 0 12px}
+.info-card p,.info-card li{color:var(--muted);font-size:13px;line-height:1.75}
+.info-card p{margin:0}
+.info-card ul{padding-left:19px;margin:10px 0 0}
+.info-card li{padding:2px 0}
+.info-icon{font-size:27px}
+.licensing-panel{margin:26px 0 48px;background:#e9eee6;border:1px solid #dfe7dc;border-radius:24px;padding:clamp(22px,4vw,38px)}
+.licensing-panel h2,.cta-panel h2{font:500 clamp(30px,4vw,42px)/1.1 Georgia,serif;letter-spacing:-.035em;margin:12px 0}
+.licensing-panel>p{color:#59695e;line-height:1.8;font-size:14px;max-width:850px}
+.state-list{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:8px;margin:22px 0}
+.state-list span{background:rgba(255,255,255,.76);border:1px solid rgba(69,107,85,.12);border-radius:9px;padding:9px 10px;font-size:12px;font-weight:650;color:#425247}
+.credential-row{display:flex;align-items:center;justify-content:space-between;gap:15px;max-width:600px;padding:15px 0;border-bottom:1px solid rgba(69,107,85,.18)}
+.credential-row strong{font:500 22px Georgia,serif}
+.credential-row span{font-size:13px;color:#536258;text-align:right}
+.clinician-license a{text-decoration:underline}
+.cta-panel{display:flex;align-items:center;justify-content:space-between;gap:25px;margin:40px 0 15px;padding:clamp(24px,4vw,40px);background:#263b30;color:#fff;border-radius:24px}
+.cta-panel .eyebrow{color:#d7e4d7}
+.cta-panel h2{max-width:600px}
+.cta-panel p{color:#c1cdc3;line-height:1.7;max-width:620px}
+.cta-panel .btn{background:#fff;color:var(--green);white-space:nowrap}
+@media(max-width:850px){.info-grid.three-col{grid-template-columns:repeat(2,minmax(0,1fr))}.state-list{grid-template-columns:repeat(3,minmax(0,1fr))}.cta-panel{align-items:flex-start;flex-direction:column}}
+@media(max-width:600px){.info-grid,.info-grid.two-col,.info-grid.three-col{grid-template-columns:1fr}.state-list{grid-template-columns:repeat(2,minmax(0,1fr))}.credential-row{align-items:flex-start;flex-direction:column;gap:5px}.credential-row span{text-align:left}.info-card{padding:21px}.cta-panel .btn{width:100%}}

@@ -9,7 +9,7 @@
 <body>
 <header><div class="wrap nav">
 <a class="brand" href="index.html"><span class="brand-mark">🐾</span><span>PAW HAVEN<small>VETERINARY CLINIC</small></span></a>
-<nav class="navlinks">
+<nav class="navlinks"><a href="services.html">Services & Care</a><a href="clinician.html">Our Clinicians</a>
 <a href="index.html">Home</a>
 <a href="index.html#care">Our care</a>
 <a href="hours-services.html">Hours & Services</a>
@@ -76,11 +76,16 @@
 </div>
 <div class="field">
 <label for="state">State *</label>
-<input id="state" name="state" required autocomplete="address-level1" placeholder="Your state">
+<select id="state" name="state" required autocomplete="address-level1">
+    <option value="">Choose your state</option>
+</select>
 </div>
 <div class="field">
 <label for="city">City *</label>
-<input id="city" name="city" required autocomplete="address-level2" placeholder="Your city">
+<select id="city" name="city" required autocomplete="address-level2" disabled>
+    <option value="">Choose your state first</option>
+</select>
+<p id="cityStatus" class="hint">Choose a state to load its cities and towns.</p>
 </div>
 <div class="field">
 <label for="zip">ZIP / Postal code *</label>
@@ -152,5 +157,100 @@ form.addEventListener('submit',e=>{
 });
 </script>
 <a class="whatsapp-support" href="https://wa.me/254141892382?text=Hello%20Paw%20Haven%2C%20I%20need%20assistance.%20Can%20you%20help%20me%3F" target="_blank" rel="noopener" aria-label="Chat with Paw Haven on WhatsApp"><span aria-hidden="true">☎</span><span>WhatsApp Support</span></a>
+<script>
+(function () {
+    const stateSelect = document.getElementById("state");
+    const citySelect = document.getElementById("city");
+    const cityStatus = document.getElementById("cityStatus");
+
+    if (!stateSelect || !citySelect) return;
+
+    const states = [
+        ["Alabama","01"],["Alaska","02"],["Arizona","04"],
+        ["Arkansas","05"],["California","06"],["Colorado","08"],
+        ["Connecticut","09"],["Delaware","10"],["Florida","12"],
+        ["Georgia","13"],["Hawaii","15"],["Idaho","16"],
+        ["Illinois","17"],["Indiana","18"],["Iowa","19"],
+        ["Kansas","20"],["Kentucky","21"],["Louisiana","22"],
+        ["Maine","23"],["Maryland","24"],["Massachusetts","25"],
+        ["Michigan","26"],["Minnesota","27"],["Mississippi","28"],
+        ["Missouri","29"],["Montana","30"],["Nebraska","31"],
+        ["Nevada","32"],["New Hampshire","33"],["New Jersey","34"],
+        ["New Mexico","35"],["New York","36"],["North Carolina","37"],
+        ["North Dakota","38"],["Ohio","39"],["Oklahoma","40"],
+        ["Oregon","41"],["Pennsylvania","42"],["Rhode Island","44"],
+        ["South Carolina","45"],["South Dakota","46"],["Tennessee","47"],
+        ["Texas","48"],["Utah","49"],["Vermont","50"],
+        ["Virginia","51"],["Washington","53"],["West Virginia","54"],
+        ["Wisconsin","55"],["Wyoming","56"]
+    ];
+
+    states.forEach(function (state) {
+        const option = document.createElement("option");
+        option.value = state[0];
+        option.textContent = state[0];
+        option.dataset.fips = state[1];
+        stateSelect.appendChild(option);
+    });
+
+    let requestNumber = 0;
+
+    stateSelect.addEventListener("change", async function () {
+        const selected = stateSelect.options[stateSelect.selectedIndex];
+        const stateName = selected.value;
+        const fips = selected.dataset.fips;
+        const currentRequest = ++requestNumber;
+
+        citySelect.innerHTML = '<option value="">Loading cities...</option>';
+        citySelect.disabled = true;
+
+        if (!fips) {
+            citySelect.innerHTML = '<option value="">Choose your state first</option>';
+            cityStatus.textContent = "Choose a state to load its cities and towns.";
+            return;
+        }
+
+        cityStatus.textContent = "Loading locations in " + stateName + "...";
+
+        try {
+            const url = "https://api.census.gov/data/2024/acs/acs5?get=NAME&for=place:*&in=state:" + fips;
+            const response = await fetch(url);
+
+            if (!response.ok) throw new Error("Location data unavailable");
+
+            const rows = await response.json();
+            if (currentRequest !== requestNumber) return;
+
+            const cities = [...new Set(rows.slice(1).map(function (row) {
+                return row[0]
+                    .split(",")[0]
+                    .replace(/\s+(city|town|village|borough|CDP|municipality|township)$/i, "")
+                    .trim();
+            }).filter(Boolean))].sort(function (a, b) {
+                return a.localeCompare(b);
+            });
+
+            citySelect.innerHTML = '<option value="">Choose your city or town</option>';
+
+            cities.forEach(function (city) {
+                const option = document.createElement("option");
+                option.value = city;
+                option.textContent = city;
+                citySelect.appendChild(option);
+            });
+
+            citySelect.disabled = false;
+            cityStatus.textContent = cities.length
+                ? cities.length + " locations loaded in " + stateName + ". Select your city or town."
+                : "No locations were returned. Please try again.";
+
+        } catch (error) {
+            if (currentRequest !== requestNumber) return;
+            citySelect.innerHTML = '<option value="">Could not load locations</option>';
+            cityStatus.textContent = "We could not load the city list. Please check your internet connection and try again.";
+        }
+    });
+})();
+</script>
 </body>
 </html>

@@ -3,13 +3,34 @@
 <nav class="navlinks"><a href="index.html">Home</a><a href="index.html#care">Our care</a><a href="index.html#gallery">Happy pets</a><a href="book.html">Appointments</a></nav>
 <a class="btn" href="book.html">Book a visit <span>↗</span></a>
 </div></header>
-<main class="page-main"><div class="wrap"><div class="page-card success"><div class="success-icon">✓</div><h2>Details saved successfully!</h2><p>Your appointment request is ready to send to the clinic. The team will review your details and share payment instructions using your selected contact method.</p><a id="whatsappLink" class="btn" target="_blank" rel="noopener">Send booking to clinic on WhatsApp ↗</a><div class="notice" style="text-align:left;max-width:560px;margin:25px auto">Please wait for the clinic's payment instructions. Your appointment is not confirmed until payment and availability are verified.</div><a class="btn secondary" href="index.html">Return to home</a></div></div></main><footer><div class="wrap footer-inner"><div class="footer-brand">🐾 PAW HAVEN<small>VETERINARY CLINIC</small></div><p>Where Every Paw Finds Loving Care. <span style="padding:0 8px">·</span> WhatsApp: +254 141 892 382</p><p>© <span class="year"></span> Paw Haven Veterinary Clinic</p></div></footer>
+<main class="page-main"><div class="wrap"><div class="page-card success"><div class="success-icon">✓</div><h2>Details saved successfully!</h2><p>Your appointment request has been sent to the clinic. Please wait while our clinician reviews your details and guides you through completing your booking. WhatsApp will open shortly. Please tap Send there to share your request with the clinic.</p><p id="whatsappCountdown" style="font-weight:600;text-align:center;margin:18px 0">Preparing your WhatsApp message...</p><a id="whatsappLink" class="btn" target="_blank" rel="noopener">Open WhatsApp and send booking ↗</a><div class="notice" style="text-align:left;max-width:560px;margin:25px auto">Please wait for the clinic's payment instructions. Your appointment is not confirmed until payment and availability are verified.</div><a class="btn secondary" href="index.html">Return to home</a></div></div></main><footer><div class="wrap footer-inner"><div class="footer-brand">🐾 PAW HAVEN<small>VETERINARY CLINIC</small></div><p>Where Every Paw Finds Loving Care. <span style="padding:0 8px">·</span> WhatsApp: +254 141 892 382</p><p>© <span class="year"></span> Paw Haven Veterinary Clinic</p></div></footer>
 <script>document.querySelectorAll('.year').forEach(x=>x.textContent=new Date().getFullYear());</script>
 <script>
-let b;try{b=JSON.parse(sessionStorage.getItem('pawHavenBooking')||'null')}catch(e){}
-if(!b){location.replace('book.html')}else{
-const msg=['NEW PAW HAVEN APPOINTMENT REQUEST','Owner: '+b.owner,'Phone: '+b.phone,'Pet: '+b.pet+' ('+b.type+')','Preferred date: '+b.date,'Preferred time: '+b.time,'Reason: '+b.reason,'Deposit selected: $'+b.deposit+' USD','Preferred payment method: '+b.paymentMethod,'Contact preference: '+b.contactPreference,b.contactPreference!=='Telegram'?'Customer WhatsApp: '+b.customerWhatsApp:'',b.contactPreference!=='WhatsApp'?'Customer Telegram: '+b.customerTelegram:'','','Please share payment destination or secure checkout instructions. Verify payment and availability before confirming.'].filter(Boolean).join('\n');
-document.getElementById('whatsappLink').href='https://wa.me/254141892382?text='+encodeURIComponent(msg);
+const savedMessage = sessionStorage.getItem('pawHavenWhatsAppMessage');
+const whatsappLink = document.getElementById('whatsappLink');
+const countdown = document.getElementById('whatsappCountdown');
+
+if (savedMessage) {
+    const whatsappUrl = 'https://wa.me/254141892382?text=' + encodeURIComponent(savedMessage);
+    whatsappLink.href = whatsappUrl;
+
+    let seconds = 5;
+    countdown.textContent = 'WhatsApp will open in ' + seconds + ' seconds. Please tap Send when it opens.';
+
+    const timer = setInterval(() => {
+        seconds--;
+
+        if (seconds <= 0) {
+            clearInterval(timer);
+            countdown.textContent = 'Opening WhatsApp...';
+            window.location.href = whatsappUrl;
+        } else {
+            countdown.textContent = 'WhatsApp will open in ' + seconds + ' seconds. Please tap Send when it opens.';
+        }
+    }, 1000);
+} else {
+    countdown.textContent = 'Your confirmation is displayed above. You can contact the clinic using the WhatsApp button.';
+    whatsappLink.href = 'https://wa.me/254141892382';
 }
 </script><a class="whatsapp-support" href="https://wa.me/254141892382?text=Hello%20Paw%20Haven%2C%20I%20need%20assistance.%20Can%20you%20help%20me%3F" target="_blank" rel="noopener" aria-label="Chat with Paw Haven on WhatsApp"><span aria-hidden="true">☏</span><span>WhatsApp Support</span></a>
 </body></html>

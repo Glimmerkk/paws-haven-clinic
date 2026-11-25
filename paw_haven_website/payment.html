@@ -1,6 +1,6 @@
 <!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Payment Request | Paw Haven</title><link rel="stylesheet" href="assets/style.css"></head><body><header><div class="wrap nav">
 <a class="brand" href="index.html"><span class="brand-mark">🐾</span><span>PAW HAVEN<small>VETERINARY CLINIC</small></span></a>
-<nav class="navlinks"><a href="index.html">Home</a><a href="index.html#care">Our care</a><a href="hours-services.html">Hours & Services</a><a href="index.html#gallery">Happy pets</a><a href="book.html">Appointments</a></nav>
+<nav class="navlinks"><a href="services.html">Services & Care</a><a href="clinician.html">Our Clinicians</a><a href="index.html">Home</a><a href="index.html#care">Our care</a><a href="hours-services.html">Hours & Services</a><a href="index.html#gallery">Happy pets</a><a href="book.html">Appointments</a></nav>
 <a class="btn" href="book.html">Book a visit <span>↗</span></a>
 </div></header>
 <main class="page-main"><div class="wrap"><div class="page-heading"><div class="eyebrow" style="justify-content:center">One more little step</div><h1>Choose your deposit option</h1><p>Enter your preferred payment and contact details. On submission, the clinic receives the request in Telegram, then WhatsApp opens so you can send the same details there too.</p></div>
@@ -37,10 +37,9 @@ form.addEventListener('submit',async e=>{
  try {
    const response=await fetch('/api/send-telegram',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({message})});
    const result=await response.json().catch(()=>({}));
-   if(!response.ok)throw new Error(result.error||'Telegram delivery failed. Please try again.');
+   if(!response.ok)throw new Error(result.error||'Telegram delivery failed. Please try again.');   sessionStorage.setItem('pawHavenWhatsAppMessage', message);
    sessionStorage.removeItem('pawHavenBooking');
-   const whatsappUrl='https://wa.me/254141892382?text='+encodeURIComponent(message);
-   window.location.href=whatsappUrl;
+   window.location.href = 'success.html';
  } catch(err) {
    alert(err.message||'We could not send your details to the clinic. Please try again.');
    button.disabled=false;button.textContent='Submit details →';
