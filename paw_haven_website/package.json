@@ -1,7 +1,6 @@
 {
-  "name": "paw-haven-veterinary-clinic",
-  "version": "1.0.0",
-  "private": true,
-  "type": "module",
-  "scripts": { "dev": "vercel dev" }
+    "name":  "paw-haven-veterinary-clinic",
+    "version":  "1.0.0",
+    "private":  true,
+    "type":  "module"
 }

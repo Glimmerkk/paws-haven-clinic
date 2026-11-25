@@ -1,22 +1,156 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Book an Appointment | Paw Haven</title><link rel="stylesheet" href="assets/style.css"></head><body><header><div class="wrap nav">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Book an Appointment | Paw Haven</title>
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+<header><div class="wrap nav">
 <a class="brand" href="index.html"><span class="brand-mark">🐾</span><span>PAW HAVEN<small>VETERINARY CLINIC</small></span></a>
-<nav class="navlinks"><a href="index.html">Home</a><a href="index.html#care">Our care</a><a href="index.html#gallery">Happy pets</a><a href="book.html">Appointments</a></nav>
-<a class="btn" href="book.html">Book a visit <span>↗</span></a>
+<nav class="navlinks">
+<a href="index.html">Home</a>
+<a href="index.html#care">Our care</a>
+<a href="hours-services.html">Hours & Services</a>
+<a href="book.html">Appointments</a>
+</nav>
+<a class="btn" href="book.html">Book a visit</a>
 </div></header>
-<main class="page-main"><div class="wrap"><div class="page-heading"><div class="eyebrow" style="justify-content:center">Your pet's next happy visit</div><h1>Book an appointment</h1><p>Share a few details about you and your furry friend. Your preferred date and time are a request; the clinic will confirm availability.</p></div>
-<div class="page-card"><div class="steps"><div class="step active"><span class="num">1</span> Your visit</div><div class="step-line"></div><div class="step"><span class="num">2</span> Deposit</div></div>
-<form id="bookingForm"><div class="fields">
-<div class="field"><label for="owner">Owner's name *</label><input id="owner" name="owner" autocomplete="name" required placeholder="Your full name"></div>
-<div class="field"><label for="phone">Phone number *</label><input id="phone" name="phone" type="tel" autocomplete="tel" required placeholder="+1 (555) 000-0000"></div>
-<div class="field"><label for="pet">Pet's name *</label><input id="pet" name="pet" required placeholder="Your pet's name"></div>
-<div class="field"><label for="type">Pet type *</label><select id="type" name="type" required><option value="">Choose pet type</option><option>Dog</option><option>Cat</option><option>Rabbit</option><option>Bird</option><option>Other</option></select></div>
-<div class="field"><label for="date">Preferred date *</label><input id="date" name="date" type="date" required></div>
-<div class="field"><label for="time">Preferred time *</label><select id="time" name="time" required><option value="">Choose a time</option><option>9:00 AM</option><option>10:00 AM</option><option>11:00 AM</option><option>12:00 PM</option><option>1:00 PM</option><option>2:00 PM</option><option>3:00 PM</option><option>4:00 PM</option></select></div>
-<div class="field full"><label for="reason">Reason for visit *</label><textarea id="reason" name="reason" required placeholder="Tell us what your pet needs..."></textarea></div></div>
-<div class="form-actions"><span class="hint">* Required fields</span><button class="btn" type="submit">Continue to payment options →</button></div></form></div></div></main><footer><div class="wrap footer-inner"><div class="footer-brand">🐾 PAW HAVEN<small>VETERINARY CLINIC</small></div><p>Where Every Paw Finds Loving Care. <span style="padding:0 8px">·</span> WhatsApp: +254 141 892 382</p><p>© <span class="year"></span> Paw Haven Veterinary Clinic</p></div></footer>
-<script>document.querySelectorAll('.year').forEach(x=>x.textContent=new Date().getFullYear());</script>
+
+<main class="page-main">
+<div class="wrap">
+<div class="page-heading">
+<div class="eyebrow" style="justify-content:center">Your pet's next happy visit</div>
+<h1>Book an appointment</h1>
+<p>Tell us about your pet, choose how you would like to receive care, and share your location. Our team will contact you to confirm availability and guide you to the nearest available branch when needed.</p>
+</div>
+
+<div class="page-card">
+<div class="steps">
+<div class="step active"><span class="num">1</span> Your visit</div>
+<div class="step-line"></div>
+<div class="step"><span class="num">2</span> Deposit</div>
+</div>
+
+<form id="bookingForm">
+<div class="fields">
+<div class="field">
+<label for="owner">Owner's name *</label>
+<input id="owner" name="owner" autocomplete="name" required placeholder="Your full name">
+</div>
+<div class="field">
+<label for="phone">Phone number *</label>
+<input id="phone" name="phone" type="tel" autocomplete="tel" required placeholder="Your phone number">
+</div>
+<div class="field">
+<label for="pet">Pet's name *</label>
+<input id="pet" name="pet" required placeholder="Your pet's name">
+</div>
+<div class="field">
+<label for="type">Pet type *</label>
+<select id="type" name="type" required>
+<option value="">Choose pet type</option>
+<option>Dog</option><option>Cat</option><option>Rabbit</option><option>Bird</option><option>Other</option>
+</select>
+</div>
+
+<div class="field full">
+<label for="serviceType">How would you like to receive care? *</label>
+<select id="serviceType" name="serviceType" required>
+<option value="">Choose a service</option>
+<option value="Visit a Paw Haven branch">Visit a Paw Haven branch</option>
+<option value="Door-to-door / home visit">Door-to-door / home visit</option>
+</select>
+<p class="hint">For branch visits, our team will use your address to guide you to the nearest available branch. Home visits are subject to confirmation.</p>
+</div>
+
+<div class="field full">
+<label>Where should we locate you? *</label>
+<p class="hint">Please provide your full address for either service so our team can guide you or confirm a home visit.</p>
+</div>
+
+<div class="field">
+<label for="country">Country *</label>
+<input id="country" name="country" required value="United States" autocomplete="country-name">
+</div>
+<div class="field">
+<label for="state">State *</label>
+<input id="state" name="state" required autocomplete="address-level1" placeholder="Your state">
+</div>
+<div class="field">
+<label for="city">City *</label>
+<input id="city" name="city" required autocomplete="address-level2" placeholder="Your city">
+</div>
+<div class="field">
+<label for="zip">ZIP / Postal code *</label>
+<input id="zip" name="zip" required autocomplete="postal-code" placeholder="ZIP code">
+</div>
+<div class="field full">
+<label for="streetAddress">Street address *</label>
+<input id="streetAddress" name="streetAddress" required autocomplete="street-address" placeholder="House number and street name">
+</div>
+<div class="field full">
+<label for="addressLine2">Apartment, suite, unit (optional)</label>
+<input id="addressLine2" name="addressLine2" placeholder="Apartment, suite, unit, building">
+</div>
+
+<div class="field">
+<label for="date">Preferred date *</label>
+<input id="date" name="date" type="date" required>
+</div>
+<div class="field">
+<label for="time">Preferred time *</label>
+<select id="time" name="time" required>
+<option value="">Choose a time</option>
+<option>7:00 AM</option><option>8:00 AM</option>
+<option>9:00 AM</option><option>10:00 AM</option>
+<option>11:00 AM</option><option>12:00 PM</option>
+<option>1:00 PM</option><option>2:00 PM</option>
+<option>3:00 PM</option><option>4:00 PM</option>
+<option>5:00 PM</option>
+</select>
+</div>
+<div class="field full">
+<label for="reason">Reason for visit *</label>
+<textarea id="reason" name="reason" required placeholder="Tell us what your pet needs..."></textarea>
+</div>
+</div>
+
+<div class="notice">
+Regular appointments: Monday–Saturday, 7:00 AM–5:00 PM. Emergency services are available 24 hours a day. Appointment requests are not confirmed until the clinic contacts you.
+</div>
+<div class="form-actions">
+<span class="hint">* Required fields</span>
+<button class="btn" type="submit">Continue to payment options →</button>
+</div>
+</form>
+</div>
+</div>
+</main>
+
+<footer><div class="wrap footer-inner">
+<div class="footer-brand">🐾 PAW HAVEN<small>VETERINARY CLINIC</small></div>
+<p>Where Every Paw Finds Loving Care. · WhatsApp: +254 141 892 382</p>
+<p><a href="hours-services.html">Hours & Services</a></p>
+<p>© <span class="year"></span> Paw Haven Veterinary Clinic</p>
+</div></footer>
+
 <script>
-const form=document.getElementById('bookingForm');const d=document.getElementById('date');const now=new Date();now.setMinutes(now.getMinutes()-now.getTimezoneOffset());d.min=now.toISOString().slice(0,10);
-form.addEventListener('submit',e=>{e.preventDefault();if(!form.reportValidity())return;const data=Object.fromEntries(new FormData(form).entries());sessionStorage.setItem('pawHavenBooking',JSON.stringify(data));location.href='payment.html';});
-</script><a class="whatsapp-support" href="https://wa.me/254141892382?text=Hello%20Paw%20Haven%2C%20I%20need%20assistance.%20Can%20you%20help%20me%3F" target="_blank" rel="noopener" aria-label="Chat with Paw Haven on WhatsApp"><span aria-hidden="true">☏</span><span>WhatsApp Support</span></a>
-</body></html>
+document.querySelectorAll('.year').forEach(x=>x.textContent=new Date().getFullYear());
+const form=document.getElementById('bookingForm');
+const dateInput=document.getElementById('date');
+const now=new Date();
+now.setMinutes(now.getMinutes()-now.getTimezoneOffset());
+dateInput.min=now.toISOString().slice(0,10);
+form.addEventListener('submit',e=>{
+ e.preventDefault();
+ if(!form.reportValidity()) return;
+ const data=Object.fromEntries(new FormData(form).entries());
+ sessionStorage.setItem('pawHavenBooking',JSON.stringify(data));
+ location.href='payment.html';
+});
+</script>
+<a class="whatsapp-support" href="https://wa.me/254141892382?text=Hello%20Paw%20Haven%2C%20I%20need%20assistance.%20Can%20you%20help%20me%3F" target="_blank" rel="noopener" aria-label="Chat with Paw Haven on WhatsApp"><span aria-hidden="true">☎</span><span>WhatsApp Support</span></a>
+</body>
+</html>
