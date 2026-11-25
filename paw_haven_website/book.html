@@ -213,8 +213,7 @@ form.addEventListener('submit',e=>{
         cityStatus.textContent = "Loading locations in " + stateName + "...";
 
         try {
-            const url = "https://api.census.gov/data/2024/acs/acs5?get=NAME&for=place:*&in=state:" + fips;
-            const response = await fetch(url);
+            const response = await fetch("/api/cities?state=" + encodeURIComponent(fips));
 
             if (!response.ok) throw new Error("Location data unavailable");
 
