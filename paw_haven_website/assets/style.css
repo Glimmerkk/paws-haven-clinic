@@ -61,3 +61,90 @@ footer{padding:35px 0;background:#263b30;color:#f7f5ee}.footer-inner{display:fle
 .cta-panel .btn{background:#fff;color:var(--green);white-space:nowrap}
 @media(max-width:850px){.info-grid.three-col{grid-template-columns:repeat(2,minmax(0,1fr))}.state-list{grid-template-columns:repeat(3,minmax(0,1fr))}.cta-panel{align-items:flex-start;flex-direction:column}}
 @media(max-width:600px){.info-grid,.info-grid.two-col,.info-grid.three-col{grid-template-columns:1fr}.state-list{grid-template-columns:repeat(2,minmax(0,1fr))}.credential-row{align-items:flex-start;flex-direction:column;gap:5px}.credential-row span{text-align:left}.info-card{padding:21px}.cta-panel .btn{width:100%}}
+
+/* Consistent mobile slide-out navigation */
+.nav { position: relative; }
+.menu-toggle {
+    display: none;
+    border: 1px solid var(--line);
+    background: #fff;
+    color: var(--ink);
+    border-radius: 12px;
+    width: 44px;
+    height: 44px;
+    font-size: 25px;
+    line-height: 1;
+    cursor: pointer;
+    align-items: center;
+    justify-content: center;
+}
+.menu-overlay {
+    display: none;
+}
+.mobile-menu {
+    display: none;
+}
+
+@media(max-width:600px) {
+    .nav {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 10px;
+    }
+    .navlinks {
+        display: none !important;
+    }
+    .menu-toggle {
+        display: flex;
+        flex-shrink: 0;
+        margin-left: auto;
+    }
+    .nav .btn {
+        display: none;
+    }
+    .mobile-menu {
+        display: flex;
+        position: fixed;
+        z-index: 1002;
+        top: 0;
+        right: 0;
+        width: min( min(85vw, 340px), 340px );
+        height: 100dvh;
+        padding: 85px 24px 30px;
+        flex-direction: column;
+        gap: 0;
+        background: #fff;
+        box-shadow: -12px 0 35px rgba(0,0,0,.16);
+        transform: translateX(110%);
+        transition: transform .25s ease;
+        visibility: hidden;
+        overflow-y: auto;
+    }
+    .mobile-menu.is-open {
+        transform: translateX(0);
+        visibility: visible;
+    }
+    .mobile-menu a {
+        display: block;
+        padding: 17px 8px;
+        border-bottom: 1px solid var(--line);
+        color: var(--ink);
+        text-decoration: none;
+        font-size: 16px;
+        font-weight: 700;
+    }
+    .mobile-menu a[aria-current="page"] {
+        color: var(--green);
+    }
+    .menu-overlay.is-visible {
+        display: block;
+        position: fixed;
+        inset: 0;
+        z-index: 1001;
+        background: rgba(0,0,0,.45);
+    }
+    body.menu-open {
+        overflow: hidden;
+    }
+}

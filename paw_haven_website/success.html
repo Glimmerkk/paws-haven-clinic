@@ -1,8 +1,19 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Request Submitted | Paw Haven</title><link rel="stylesheet" href="assets/style.css"></head><body><header><div class="wrap nav">
-<a class="brand" href="index.html"><span class="brand-mark">🐾</span><span>PAW HAVEN<small>VETERINARY CLINIC</small></span></a>
-<nav class="navlinks"><a href="index.html">Home</a><a href="index.html#care">Our care</a><a href="index.html#gallery">Happy pets</a><a href="book.html">Appointments</a></nav>
-<a class="btn" href="book.html">Book a visit <span>↗</span></a>
-</div></header>
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Request Submitted | Paw Haven</title><link rel="stylesheet" href="assets/style.css"></head><body><header>
+  <div class="wrap nav">
+    <a class="brand" href="index.html"><span class="brand-mark">🐾</span><span>PAW HAVEN<small>VETERINARY CLINIC</small></span></a>
+    <nav class="navlinks">
+      <a href="index.html">Home</a>
+      <a href="services.html">Services & Care</a>
+      <a href="clinician.html">Our Clinicians</a>
+      <a href="hours-services.html">Hours & Services</a>
+      <a href="book.html">Appointments</a>
+    </nav>
+    <a class="btn" href="book.html">Book a visit</a>
+    <button class="menu-toggle" type="button" aria-label="Open navigation menu" aria-expanded="false" aria-controls="mobile-menu">☰</button>
+  </div>
+  <nav class="mobile-menu" id="mobile-menu" aria-label="Mobile navigation" aria-hidden="true"></nav>
+  <div class="menu-overlay"></div>
+</header>
 <main class="page-main"><div class="wrap"><div class="page-card success"><div class="success-icon">✓</div><h2>Details saved successfully!</h2><p>Your appointment request has been sent to the clinic. Please wait while our clinician reviews your details and guides you through completing your booking. WhatsApp will open shortly. Please tap Send there to share your request with the clinic.</p><p id="whatsappCountdown" style="font-weight:600;text-align:center;margin:18px 0">Preparing your WhatsApp message...</p><a id="whatsappLink" class="btn" target="_blank" rel="noopener">Open WhatsApp and send booking ↗</a><div class="notice" style="text-align:left;max-width:560px;margin:25px auto">Please wait for the clinic's payment instructions. Your appointment is not confirmed until payment and availability are verified.</div><a class="btn secondary" href="index.html">Return to home</a></div></div></main><footer><div class="wrap footer-inner"><div class="footer-brand">🐾 PAW HAVEN<small>VETERINARY CLINIC</small></div><p>Where Every Paw Finds Loving Care. <span style="padding:0 8px">·</span> WhatsApp: +254 141 892 382</p><p>© <span class="year"></span> Paw Haven Veterinary Clinic</p></div></footer>
 <script>document.querySelectorAll('.year').forEach(x=>x.textContent=new Date().getFullYear());</script>
 <script>
@@ -33,4 +44,5 @@ if (savedMessage) {
     whatsappLink.href = 'https://wa.me/254141892382';
 }
 </script><a class="whatsapp-support" href="https://wa.me/254141892382?text=Hello%20Paw%20Haven%2C%20I%20need%20assistance.%20Can%20you%20help%20me%3F" target="_blank" rel="noopener" aria-label="Chat with Paw Haven on WhatsApp"><span aria-hidden="true">☏</span><span>WhatsApp Support</span></a>
+<script src="assets/nav.js" defer></script>
 </body></html>

@@ -9,17 +9,20 @@
 </head>
 <body>
 <header>
-<div class="wrap nav">
-<a class="brand" href="index.html"><span class="brand-mark">🐾</span><span>PAW HAVEN<small>VETERINARY CLINIC</small></span></a>
-<nav class="navlinks">
-<a href="index.html">Home</a>
-<a href="services.html" aria-current="page">Services & Care</a>
-<a href="clinician.html">Our Clinicians</a>
-<a href="hours-services.html">Hours & Services</a>
-<a href="book.html">Appointments</a>
-</nav>
-<a class="btn" href="book.html">Book a visit</a>
-</div>
+  <div class="wrap nav">
+    <a class="brand" href="index.html"><span class="brand-mark">🐾</span><span>PAW HAVEN<small>VETERINARY CLINIC</small></span></a>
+    <nav class="navlinks">
+      <a href="index.html">Home</a>
+      <a href="services.html" aria-current="page">Services & Care</a>
+      <a href="clinician.html">Our Clinicians</a>
+      <a href="hours-services.html">Hours & Services</a>
+      <a href="book.html">Appointments</a>
+    </nav>
+    <a class="btn" href="book.html">Book a visit</a>
+    <button class="menu-toggle" type="button" aria-label="Open navigation menu" aria-expanded="false" aria-controls="mobile-menu">☰</button>
+  </div>
+  <nav class="mobile-menu" id="mobile-menu" aria-label="Mobile navigation" aria-hidden="true"></nav>
+  <div class="menu-overlay"></div>
 </header>
 
 <main class="page-main">
@@ -81,5 +84,6 @@
 <footer><div class="wrap footer-inner"><div class="footer-brand">🐾 PAW HAVEN<small>VETERINARY CLINIC</small></div><p>Where Every Paw Finds Loving Care.</p><p>© <span class="year"></span> Paw Haven Veterinary Clinic</p></div></footer>
 <script>document.querySelectorAll('.year').forEach(x=>x.textContent=new Date().getFullYear());</script>
 <a class="whatsapp-support" href="https://wa.me/254141892382?text=Hello%20Paw%20Haven%2C%20I%20have%20a%20question%20about%20your%20services." target="_blank" rel="noopener" aria-label="Chat with Paw Haven on WhatsApp"><span aria-hidden="true">☏</span><span>WhatsApp Support</span></a>
+<script src="assets/nav.js" defer></script>
 </body>
 </html>
