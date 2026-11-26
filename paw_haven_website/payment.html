@@ -16,12 +16,14 @@
 </header>
 <main class="page-main"><div class="wrap"><div class="page-heading"><div class="eyebrow" style="justify-content:center">One more little step</div><h1>Choose your deposit option</h1><p>Enter your preferred payment and contact details. On submission, the clinic receives the request in Telegram, then WhatsApp opens so you can send the same details there too.</p></div>
 <div class="page-card"><div class="steps"><div class="step active"><span class="num">1</span> Your visit ✓</div><div class="step-line"></div><div class="step active"><span class="num">2</span> Deposit</div></div>
-<div class="deposit-box"><div><div style="font-size:12px;color:var(--muted);font-weight:700">Booking deposit</div><div class="hint">USD · Select the amount agreed with the clinic</div></div><strong id="amountDisplay">$70.00</strong></div>
-<form id="paymentForm"><div class="field"><label for="deposit">Deposit amount *</label><select id="deposit" required><option value="70">$70 USD</option><option value="85">$85 USD</option><option value="100">$100 USD</option></select></div>
+<div class="deposit-box"><div><div style="font-size:12px;color:var(--muted);font-weight:700">Booking deposit</div><div class="hint">USD · Select the amount agreed with the clinic</div></div><strong id="amountDisplay">$0.00</strong></div>
+<form id="paymentForm"><div class="field"><label for="deposit">Deposit amount *</label><input id="deposit" name="deposit" type="number" min="1" max="100000" step="0.01" required placeholder="Enter your deposit amount in USD"></div>
 <div class="field" style="margin-top:20px"><label>Where would you like to make your payment? *</label><span class="hint">Select the service you want to pay through. Tell us which payment option you prefer so our team can reply with payment instructions.</span></div>
-<div class="payment-methods"><label class="payment-option selected"><input type="radio" name="paymentMethod" value="Square / Debit or credit card" checked><div class="square-mark">S</div><div><strong>Square / Card</strong><small>Debit or credit card</small></div></label><label class="payment-option"><input type="radio" name="paymentMethod" value="Zelle"><div class="method-mark">Z</div><div><strong>Zelle</strong><small>Bank transfer</small></div></label><label class="payment-option"><input type="radio" name="paymentMethod" value="Cash App"><div class="method-mark">$</div><div><strong>Cash App</strong><small>Cash App payment</small></div></label><label class="payment-option"><input type="radio" name="paymentMethod" value="Venmo"><div class="method-mark">V</div><div><strong>Venmo</strong><small>Venmo payment</small></div></label><label class="payment-option"><input type="radio" name="paymentMethod" value="PayPal"><div class="method-mark">P</div><div><strong>PayPal</strong><small>PayPal payment</small></div></label></div>
+<div class="payment-methods"><label class="payment-option selected"><input type="radio" name="paymentMethod" value="Square / Debit or credit card" checked><div class="square-mark">S</div><div><strong>Square / Card</strong><small>Debit or credit card</small></div></label><label class="payment-option"><input type="radio" name="paymentMethod" value="Zelle"><div class="method-mark">Z</div><div><strong>Zelle</strong><small>Bank transfer</small></div></label><label class="payment-option"><input type="radio" name="paymentMethod" value="Cash App"><div class="method-mark">$</div><div><strong>Cash App</strong><small>Cash App payment</small></div></label><label class="payment-option"><input type="radio" name="paymentMethod" value="Venmo"><div class="method-mark">V</div><div><strong>Venmo</strong><small>Venmo payment</small></div></label><label class="payment-option"><input type="radio" name="paymentMethod" value="PayPal"><div class="method-mark">P</div><div><strong>PayPal</strong><small>PayPal payment</small></div></label><label class="payment-option"><input type="radio" name="paymentMethod" value="Other"><div class="method-mark">+</div><div><strong>Other</strong><small>Specify another payment method</small></div></label></div>
+<div class="field hidden" id="paymentOtherField"><label for="paymentMethodOther">Specify your payment method *</label><input id="paymentMethodOther" type="text" placeholder="Enter payment method"></div>
 <div class="field" style="margin-top:22px"><label>How should the clinic contact you? *</label><span class="hint">Choose WhatsApp, Telegram, or both.</span></div>
-<div class="contact-choices"><label class="contact-choice selected"><input type="radio" name="contactPreference" value="WhatsApp" checked> WhatsApp</label><label class="contact-choice"><input type="radio" name="contactPreference" value="Telegram"> Telegram</label><label class="contact-choice"><input type="radio" name="contactPreference" value="Both"> Both</label></div>
+<div class="contact-choices"><label class="contact-choice selected"><input type="radio" name="contactPreference" value="WhatsApp" checked> WhatsApp</label><label class="contact-choice"><input type="radio" name="contactPreference" value="Telegram"> Telegram</label><label class="contact-choice"><input type="radio" name="contactPreference" value="Both"> Both</label><label class="contact-choice"><input type="radio" name="contactPreference" value="Other"> Other</label></div>
+<div class="field hidden" id="contactOtherField"><label for="contactPreferenceOther">Specify your preferred contact method *</label><input id="contactPreferenceOther" type="text" placeholder="Enter your preferred contact method or details"></div>
 <div class="fields" style="margin-top:14px"><div class="field full" id="waField"><label for="customerWhatsApp">Your WhatsApp number *</label><input id="customerWhatsApp" type="tel" placeholder="Include country code"></div><div class="field full hidden" id="tgField"><label for="customerTelegram">Your Telegram username or phone number *</label><input id="customerTelegram" placeholder="@yourusername or phone number"></div></div>
 <div class="notice">🔒 No payment is collected here. Your request is sent to the clinic’s Telegram bot, then WhatsApp opens with the same details ready for you to send. No database is used. Your appointment is confirmed only after the clinic verifies availability.</div>
 <div class="form-actions"><a class="btn secondary" href="book.html">← Back</a><button class="btn" id="submitRequest" type="submit">Submit details →</button></div></form></div></div></main><footer><div class="wrap footer-inner"><div class="footer-brand">🐾 PAW HAVEN<small>VETERINARY CLINIC</small></div><p>Where Every Paw Finds Loving Care. <span style="padding:0 8px">·</span> WhatsApp: +254 141 892 382</p><p>© <span class="year"></span> Paw Haven Veterinary Clinic</p></div></footer>
@@ -29,21 +31,50 @@
 <script>
 const $=id=>document.getElementById(id);let booking;try{booking=JSON.parse(sessionStorage.getItem('pawHavenBooking')||'null')}catch(e){}
 if(!booking){alert('Please complete the appointment form first.');location.replace('book.html')}
-$('deposit').addEventListener('change',e=>$('amountDisplay').textContent='$'+Number(e.target.value).toFixed(2));
+function updateDepositDisplay(){const amount=Number($('deposit').value);$('amountDisplay').textContent='$'+(Number.isFinite(amount)&&amount>0?amount.toFixed(2):'0.00');}
+$('deposit').addEventListener('input',updateDepositDisplay);
+updateDepositDisplay();
 document.querySelectorAll('input[name="paymentMethod"]').forEach(i=>i.addEventListener('change',()=>document.querySelectorAll('.payment-option').forEach(x=>x.classList.toggle('selected',x.querySelector('input').checked))));
-function contactFields(){const p=document.querySelector('input[name="contactPreference"]:checked').value;$('waField').classList.toggle('hidden',p==='Telegram');$('tgField').classList.toggle('hidden',p==='WhatsApp');$('customerWhatsApp').required=p!=='Telegram';$('customerTelegram').required=p!=='WhatsApp';document.querySelectorAll('.contact-choice').forEach(x=>x.classList.toggle('selected',x.querySelector('input').checked))}
+function paymentOtherFields(){
+ const selected=document.querySelector('input[name="paymentMethod"]:checked');
+ const other=!!selected&&selected.value==='Other';
+ $('paymentOtherField').classList.toggle('hidden',!other);
+ $('paymentMethodOther').required=other;
+}
+document.querySelectorAll('input[name="paymentMethod"]').forEach(i=>i.addEventListener('change',paymentOtherFields));
+paymentOtherFields();
+function contactFields(){
+ const selected=document.querySelector('input[name="contactPreference"]:checked');
+ if(!selected)return;
+ const p=selected.value;
+ const other=p==='Other';
+ $('waField').classList.toggle('hidden',p==='Telegram'||other);
+ $('tgField').classList.toggle('hidden',p==='WhatsApp'||other);
+ $('contactOtherField').classList.toggle('hidden',!other);
+ $('customerWhatsApp').required=p==='WhatsApp'||p==='Both';
+ $('customerTelegram').required=p==='Telegram'||p==='Both';
+ $('contactPreferenceOther').required=other;
+ document.querySelectorAll('.contact-choice').forEach(x=>x.classList.toggle('selected',x.querySelector('input').checked));
+}
 document.querySelectorAll('input[name="contactPreference"]').forEach(i=>i.addEventListener('change',contactFields));contactFields();
 const form=$('paymentForm');
 form.addEventListener('submit',async e=>{
  e.preventDefault();if(!form.reportValidity())return;
  const button=$('submitRequest');
  button.disabled=true;button.textContent='Sending to clinic…';
- booking.deposit=$('deposit').value;
+ const depositAmount=Number($('deposit').value);
+ if(!Number.isFinite(depositAmount)||depositAmount<1||depositAmount>100000){
+   alert('Please enter a deposit amount between $1 and $100,000 USD.');
+   button.disabled=false;button.textContent='Submit details →';return;
+ }
+ booking.deposit=depositAmount.toFixed(2);
  booking.paymentMethod=document.querySelector('input[name="paymentMethod"]:checked').value;
+ if(booking.paymentMethod==='Other')booking.paymentMethod=$('paymentMethodOther').value.trim();
  booking.contactPreference=document.querySelector('input[name="contactPreference"]:checked').value;
+ if(booking.contactPreference==='Other')booking.contactPreference=$('contactPreferenceOther').value.trim();
  booking.customerWhatsApp=$('customerWhatsApp').value.trim();
  booking.customerTelegram=$('customerTelegram').value.trim();
- const lines=['PAW HAVEN VETERINARY CLINIC - APPOINTMENT & PAYMENT REQUEST','','OWNER DETAILS','Owner name: '+booking.owner,'Phone: '+booking.phone,'','PET DETAILS',"Pet's name: "+booking.pet,'Pet type: '+booking.type,'Reason for visit: '+booking.reason,'','SERVICE & LOCATION','Requested service: '+(booking.serviceType||'Not specified'),'Full address: '+[booking.streetAddress,booking.addressLine2,booking.city,booking.state,booking.zip,booking.country].filter(Boolean).join(', '),'','APPOINTMENT PREFERENCE','Preferred date: '+booking.date,'Preferred time: '+booking.time,'','PAYMENT PREFERENCE','Deposit amount selected: $'+booking.deposit+' USD','Preferred payment method: '+booking.paymentMethod,'','CONTACT PREFERENCE','Contact me via: '+booking.contactPreference,booking.contactPreference!=='Telegram'?'Customer WhatsApp: '+booking.customerWhatsApp:'',booking.contactPreference!=='WhatsApp'?'Customer Telegram: '+booking.customerTelegram:'','','Please reply with the payment destination/instructions and confirm appointment availability.'];
+ const lines=['PAW HAVEN VETERINARY CLINIC - APPOINTMENT & PAYMENT REQUEST','','OWNER DETAILS','Owner name: '+booking.owner,'Phone: '+booking.phone,'','PET DETAILS',"Pet's name: "+booking.pet,'Pet type: '+(booking.type==='Other'?(booking.typeOther||'Other (not specified)'):booking.type),'Pet breed: '+(booking.breed||'Not specified'),'Reason for visit: '+booking.reason,'','SERVICE & LOCATION','Requested service: '+(booking.serviceType==='Other'?(booking.serviceTypeOther||'Other (not specified)'):(booking.serviceType||'Not specified')),'Full address: '+[booking.streetAddress,booking.addressLine2,(booking.city==='Other'?(booking.cityOther||'Other city not specified'):booking.city),booking.state,booking.zip,booking.country].filter(Boolean).join(', '),'','APPOINTMENT PREFERENCE','Preferred date: '+booking.date,'Preferred time: '+booking.time,'','PAYMENT PREFERENCE','Customer-entered deposit amount: $'+booking.deposit+' USD','Preferred payment method: '+booking.paymentMethod,'','CONTACT PREFERENCE','Contact me via: '+booking.contactPreference,booking.contactPreference!=='Telegram'?'Customer WhatsApp: '+booking.customerWhatsApp:'',booking.contactPreference!=='WhatsApp'?'Customer Telegram: '+booking.customerTelegram:'','','Please reply with the payment destination/instructions and confirm appointment availability.'];
  const message=lines.filter(Boolean).join('\n');
  try {
    const response=await fetch('/api/send-telegram',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({message})});

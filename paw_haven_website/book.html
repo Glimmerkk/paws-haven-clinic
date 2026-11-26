@@ -57,8 +57,13 @@
 <label for="type">Pet type *</label>
 <select id="type" name="type" required>
 <option value="">Choose pet type</option>
-<option>Dog</option><option>Cat</option><option>Rabbit</option><option>Bird</option><option>Other</option>
+<option>Dog</option><option>Cat</option><option>Rabbit</option><option>Bird</option><option value="Other">Other</option>
 </select>
+<input id="typeOther" name="typeOther" class="field full hidden" type="text" placeholder="Please specify your pet type">
+</div>
+<div class="field full">
+<label for="breed">Pet breed (optional)</label>
+<input id="breed" name="breed" type="text" placeholder="Enter your pet breed, if known">
 </div>
 
 <div class="field full">
@@ -67,7 +72,9 @@
 <option value="">Choose a service</option>
 <option value="Visit a Paw Haven branch">Visit a Paw Haven branch</option>
 <option value="Door-to-door / home visit">Door-to-door / home visit</option>
+<option value="Other">Other</option>
 </select>
+<input id="serviceTypeOther" name="serviceTypeOther" class="field full hidden" type="text" placeholder="Please describe the care option you need">
 <p class="hint">For branch visits, our team will use your address to guide you to the nearest available branch. Home visits are subject to confirmation.</p>
 </div>
 
@@ -91,6 +98,7 @@
 <select id="city" name="city" required autocomplete="address-level2" disabled>
     <option value="">Choose your state first</option>
 </select>
+<input id="cityOther" name="cityOther" class="field full hidden" type="text" placeholder="Enter your city or town">
 <p id="cityStatus" class="hint">Choose a state to load its cities and towns.</p>
 </div>
 <div class="field">
@@ -149,6 +157,26 @@ Regular appointments: Monday–Saturday, 7:00 AM–5:00 PM. Emergency services a
 
 <script>
 document.querySelectorAll('.year').forEach(x=>x.textContent=new Date().getFullYear());
+function setupOtherChoice(selectId, inputId) {
+ const select = document.getElementById(selectId);
+ const input = document.getElementById(inputId);
+ if (!select || !input) return;
+
+ function update() {
+   const isOther = select.value === "Other";
+   input.classList.toggle("hidden", !isOther);
+   input.required = isOther;
+   if (!isOther) input.value = "";
+ }
+
+ select.addEventListener("change", update);
+ update();
+}
+
+setupOtherChoice("type", "typeOther");
+setupOtherChoice("serviceType", "serviceTypeOther");
+setupOtherChoice("city", "cityOther");
+
 const form=document.getElementById('bookingForm');
 const dateInput=document.getElementById('date');
 const now=new Date();
@@ -243,6 +271,11 @@ form.addEventListener('submit',e=>{
                 option.textContent = city;
                 citySelect.appendChild(option);
             });
+
+            const otherOption = document.createElement("option");
+            otherOption.value = "Other";
+            otherOption.textContent = "Other — enter your city";
+            citySelect.appendChild(otherOption);
 
             citySelect.disabled = false;
             cityStatus.textContent = cities.length
